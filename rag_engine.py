@@ -50,7 +50,7 @@ def retrive_content(question,embed_model,chunks,index,num_chunks=3):
   if num_chunks < 1:
     raise ValueError("Request atleast one or more chunks")
   query_embed =embed_model.encode([question],convert_to_numpy = True)
-  faiss.normalize_L2(embed_vectors)
+  faiss.normalize_L2(query_embed)
   sim_scores ,vec_indices = index.search(query_embed,min(num_chunks,len(chunks)))
   background =""
   for i in vec_indices[0]:
@@ -59,7 +59,7 @@ def retrive_content(question,embed_model,chunks,index,num_chunks=3):
   return background
 
 #Ask
-def ask_rag (question,embed_model,chunks,index,api_key,num_chunks,model_name='openai/gpt-oss-120b'):
+def ask_rag (question,embed_model,chunks,index,api_key,num_chunks=3,model_name='openai/gpt-oss-120b'):
   key=api_key
   if not key :
     raise ValueError("API is missing")

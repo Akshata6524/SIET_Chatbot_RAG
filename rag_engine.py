@@ -23,7 +23,7 @@ def create_chunks(full_text,chunksize = 500,overlap=100):
     if chunk.strip():
       chunks.append(chunk)
     start = chunksize - overlap #500-100 = 400    900-100=800    1300-100=1200
-    return chunks
+  return chunks
 
 #Embedding:
 def build_vectors(chunks,model_name="all-MiniLM-L6-v2"):

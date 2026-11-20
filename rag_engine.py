@@ -63,19 +63,19 @@ def ask_rag (question,embed_model,chunks,index,api_key,num_chunks=3,model_name='
   key=api_key
   if not key :
     raise ValueError("API is missing")
-    background = retrive_content(question,embed_model,chunks,index,num_chunks=3)
-    prompt = """ You are an professional AI Assistant.Answer user question using ONLY document background below.
+  background = retrive_content(question,embed_model,chunks,index,num_chunks=3)
+  prompt = """ You are an professional AI Assistant.Answer user question using ONLY document background below.
     Do not invent or assume facts.
     If information not available,simply say Information Missing.
-    Document Background : """ + background + "User Question" + question + "Answer:"
-    client = Groq(api_key = key)
-    req = client.chat.completions.create(
+  Document Background : """ + background + "User Question" + question + "Answer:"
+  client = Groq(api_key = key)
+  req = client.chat.completions.create(
       model = model_name,
       messages = [{"role":"user",
                    "content":prompt}],
       temperature = 0.3,
     )
-    return req.choices[0].message.content
+  return req.choices[0].message.content
 
 
 
